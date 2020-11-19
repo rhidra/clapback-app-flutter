@@ -1,9 +1,14 @@
-import 'package:clapback_app/models/user.dart';
+import 'package:clapback_app/models/panel.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'topic.g.dart';
+
+@JsonSerializable()
 class Topic {
+  @JsonKey(name: '_id')
   final String id;
-  final String title;
 
+  final String title;
   final List<String> hashtags;
   final List<String> suggestedHashtags;
   final bool isPublic;
@@ -31,23 +36,7 @@ class Topic {
       this.centerPanel,
       this.leftPanel,
       this.rightPanel});
-  
-  factory Album.fromJson(Map<String, dynamic> json) {
-    return Album(
-      id: json['_id'],
-      title: json['title'],
-      title: json['title'],
-      title: json['title'],
-      title: json['title'],
-    )
-  }
-}
 
-class Panel {
-  final String video;
-  final String text;
-  final String textAlt;
-  final String image;
-  final String quiz;
-  final User author;
+  factory Topic.fromJson(Map<String, dynamic> json) => _$TopicFromJson(json);
+  Map<String, dynamic> toJson() => _$TopicToJson(this);
 }
