@@ -1,12 +1,17 @@
+import 'package:clapback_app/models/topic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class Topic extends StatefulWidget {
+class TopicWidget extends StatefulWidget {
+  final Topic topic;
+
+  TopicWidget({Key key, this.topic}) : super(key: key);
+
   @override
-  _TopicState createState() => _TopicState();
+  _TopicWidgetState createState() => _TopicWidgetState();
 }
 
-class _TopicState extends State<Topic> {
+class _TopicWidgetState extends State<TopicWidget> {
   PageController _pageCtrl;
 
   @override
@@ -27,14 +32,14 @@ class _TopicState extends State<Topic> {
       controller: _pageCtrl,
       scrollDirection: Axis.horizontal,
       children: [
-        _buildPanel(context, Colors.green, 'left'),
-        _buildPanel(context, Colors.red, 'center'),
-        _buildPanel(context, Colors.purple, 'right'),
+        _buildPanel(Colors.green, 'left'),
+        _buildPanel(Colors.red, 'center'),
+        _buildPanel(Colors.purple, 'right'),
       ],
     );
   }
 
-  Widget _buildPanel(BuildContext context, Color color, String text) {
+  Widget _buildPanel(Color color, String text) {
     return Container(
       color: color,
       child: Center(child: Text(text)),
