@@ -2,9 +2,11 @@ import 'package:clapback_app/models/topic.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class NewsState extends Equatable {
-  NewsState([List props = const []]) : super();
+  final List _props;
 
-  List<Object> get props => props;
+  NewsState([this._props = const []]) : super();
+
+  List<Object> get props => _props;
 }
 
 class NewsStateLoading extends NewsState {
