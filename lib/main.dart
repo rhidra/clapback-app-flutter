@@ -1,5 +1,6 @@
 import 'package:clapback_app/bloc/news/news-bloc.dart';
 import 'package:clapback_app/routes.dart';
+import 'package:clapback_app/services/api-client.dart';
 import 'package:clapback_app/theme/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<NewsBloc>(
-          create: (context) => NewsBloc(),
+          create: (context) => NewsBloc(ApiClient()),
         ),
       ],
       child: MaterialApp(
