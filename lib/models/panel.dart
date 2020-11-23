@@ -1,4 +1,3 @@
-import 'package:clapback_app/models/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'panel.g.dart';
@@ -13,7 +12,7 @@ class Panel {
   final String textAlt;
   final String image;
   final String quiz;
-  final User author;
+  final dynamic author;
 
   Panel(
       {this.video,
