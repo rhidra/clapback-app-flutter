@@ -10,6 +10,12 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   NewsState get initialState => NewsStateLoading();
 
   @override
+  void onTransition(Transition<NewsEvent, NewsState> transition) {
+    print(transition);
+    super.onTransition(transition);
+  }
+
+  @override
   Stream<NewsState> mapEventToState(NewsEvent event) async* {
     if (event is NewsEventGet) {
       yield* _mapEventGetToState(event);
@@ -21,6 +27,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
   Stream<NewsState> _mapEventGetToState(NewsEvent event) async* {
     yield NewsStateLoading();
+
     yield NewsStateSuccess([Topic()]);
   }
 
