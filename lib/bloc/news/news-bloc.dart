@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:clapback_app/bloc/news/news-event.dart';
 import 'package:clapback_app/bloc/news/news-state.dart';
 import 'package:clapback_app/models/topic.dart';
@@ -34,6 +36,8 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       var res = await _apiClient.requestFeed();
       final List topics = res.map<Topic>((o) => Topic.fromJson(o)).toList();
       yield NewsStateSuccess(topics);
+    } on SocketException catch (_) {
+      yield NewsStateNotConnected();
     } catch (e) {
       print(e.toString());
       yield NewsStateError(e.toString());
