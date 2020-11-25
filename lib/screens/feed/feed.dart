@@ -1,6 +1,7 @@
 import 'package:clapback_app/bloc/news/news-bloc.dart';
 import 'package:clapback_app/bloc/news/news-event.dart';
 import 'package:clapback_app/bloc/news/news-state.dart';
+import 'package:clapback_app/components/drawer/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -57,6 +58,7 @@ class _FeedState extends State<Feed> {
                 children:
                     state.topics.map((t) => TopicWidget(topic: t)).toList(),
               ),
+              drawer: AppDrawer(),
             );
           } else {
             return Text('Error');
