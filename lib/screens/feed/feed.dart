@@ -49,8 +49,19 @@ class _FeedState extends State<Feed> {
           }
           if (state is NewsStateSuccess) {
             return Scaffold(
+              drawer: AppDrawer(),
+              extendBodyBehindAppBar: true,
               appBar: AppBar(
-                title: Text('Hello Clapback'),
+                title: Text('拍手'),
+                backgroundColor: Colors.transparent,
+                shadowColor: Colors.transparent,
+                flexibleSpace: Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: <Color>[Colors.black, Colors.transparent])),
+                ),
               ),
               body: PageView(
                 controller: _pageCtrl,
@@ -58,7 +69,6 @@ class _FeedState extends State<Feed> {
                 children:
                     state.topics.map((t) => TopicWidget(topic: t)).toList(),
               ),
-              drawer: AppDrawer(),
             );
           } else {
             return Text('Error');
