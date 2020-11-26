@@ -1,3 +1,4 @@
+import 'package:clapback_app/models/panel.dart';
 import 'package:clapback_app/models/topic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -32,17 +33,17 @@ class _TopicWidgetState extends State<TopicWidget> {
       controller: _pageCtrl,
       scrollDirection: Axis.horizontal,
       children: [
-        _buildPanel(Colors.green, 'left'),
-        _buildPanel(Colors.red, 'center'),
-        _buildPanel(Colors.purple, 'right'),
+        _buildPanel(widget.topic.leftPanel),
+        _buildPanel(widget.topic.centerPanel),
+        _buildPanel(widget.topic.rightPanel),
       ],
     );
   }
 
-  Widget _buildPanel(Color color, String text) {
+  Widget _buildPanel(Panel panel) {
     return Container(
-      color: color,
-      child: Center(child: Text(text)),
+      color: Colors.red,
+      child: Center(child: Text(panel.author.name)),
     );
   }
 }

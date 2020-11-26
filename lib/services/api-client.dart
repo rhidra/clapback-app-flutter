@@ -8,6 +8,7 @@ class ApiClient {
 
   dynamic requestFeed() async {
     final q = {
+      'populate': 'true',
       'approved': 'true',
     };
     final uri = Uri.http('$host:$port', '/topic', q);
