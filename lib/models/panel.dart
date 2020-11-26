@@ -1,3 +1,4 @@
+import 'package:clapback_app/models/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'panel.g.dart';
@@ -12,6 +13,8 @@ class Panel {
   final String textAlt;
   final String image;
   final String quiz;
+
+  @JsonKey(fromJson: _authorFromJson)
   final dynamic author;
 
   Panel(
@@ -25,4 +28,14 @@ class Panel {
 
   factory Panel.fromJson(Map<String, dynamic> json) => _$PanelFromJson(json);
   Map<String, dynamic> toJson() => _$PanelToJson(this);
+}
+
+dynamic _authorFromJson(dynamic json) {
+  if (json is String) {
+    print('string');
+    return json;
+  } else {
+    print('user');
+    return User.fromJson(json);
+  }
 }

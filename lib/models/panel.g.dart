@@ -13,7 +13,7 @@ Panel _$PanelFromJson(Map<String, dynamic> json) {
     textAlt: json['textAlt'] as String,
     image: json['image'] as String,
     quiz: json['quiz'] as String,
-    author: json['author'],
+    author: _authorFromJson(json['author']),
     id: json['_id'] as String,
   );
 }
