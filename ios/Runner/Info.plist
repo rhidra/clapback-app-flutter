@@ -49,4 +49,9 @@
   <key>NSAllowsArbitraryLoads</key>
   <true/>
 </dict>
+
+<!-- Force app orientation to portrait -->
+<array>
+    <string>UIInterfaceOrientationPortrait</string>
+</array>
 </plist>
