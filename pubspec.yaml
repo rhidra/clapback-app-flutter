@@ -35,6 +35,7 @@ dev_dependencies:
   json_serializable: ^3.5.0
   flutter_bloc: ^4.0.0
   equatable: ^1.2.5
+  video_player: ^1.0.1
 
 
 
@@ -79,3 +80,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: Hanzipen
+      fonts:
+        - asset: fonts/hanzipen.otf
