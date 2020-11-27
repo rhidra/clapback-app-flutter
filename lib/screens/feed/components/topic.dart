@@ -42,14 +42,9 @@ class _TopicWidgetState extends State<TopicWidget> {
   }
 
   Widget _buildPanel(Panel panel) {
-    return Column(
-      children: [
-        Container(),
-        Align(
-          alignment: Alignment.topCenter,
-          child: VideoPlayerScreen(panel.video),
-        ),
-      ],
+    return Align(
+      alignment: Alignment.topCenter,
+      child: VideoPlayerScreen(panel.video),
     );
   }
 }
