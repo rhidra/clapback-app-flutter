@@ -36,6 +36,7 @@ dev_dependencies:
   flutter_bloc: ^4.0.0
   equatable: ^1.2.5
   video_player: ^1.0.1
+  cached_network_image: ^2.3.3
 
 
 

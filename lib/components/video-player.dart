@@ -1,3 +1,4 @@
+import 'package:clapback_app/services/api-client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:video_player/video_player.dart';
@@ -18,7 +19,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   void initState() {
     _controller = VideoPlayerController.network(
-        'http://192.168.43.29:9000/media/video/${widget.videoUrl}/hls.m3u8');
+        ApiClient.formatMedia(widget.videoUrl, 'video'));
 
     _initializeVideoPlayerFuture = _controller.initialize();
     _controller.play();
