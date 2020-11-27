@@ -1,3 +1,4 @@
+import 'package:clapback_app/components/video-player.dart';
 import 'package:clapback_app/models/panel.dart';
 import 'package:clapback_app/models/topic.dart';
 import 'package:flutter/material.dart';
@@ -41,9 +42,14 @@ class _TopicWidgetState extends State<TopicWidget> {
   }
 
   Widget _buildPanel(Panel panel) {
-    return Container(
-      color: Colors.red,
-      child: Center(child: Text(panel.author.name)),
+    return Column(
+      children: [
+        Container(),
+        Align(
+          alignment: Alignment.topCenter,
+          child: VideoPlayerScreen(panel.video),
+        ),
+      ],
     );
   }
 }

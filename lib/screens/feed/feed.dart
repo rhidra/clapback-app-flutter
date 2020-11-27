@@ -1,7 +1,8 @@
 import 'package:clapback_app/bloc/news/news-bloc.dart';
 import 'package:clapback_app/bloc/news/news-event.dart';
 import 'package:clapback_app/bloc/news/news-state.dart';
-import 'package:clapback_app/components/drawer/drawer.dart';
+import 'package:clapback_app/components/drawer.dart';
+import 'package:clapback_app/screens/feed/components/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,47 +33,43 @@ class _FeedState extends State<Feed> {
 
   @override
   Widget build(BuildContext context) {
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
+
     return BlocBuilder<NewsBloc, NewsState>(
         bloc: _bloc,
         builder: (BuildContext context, NewsState state) {
+          Widget main;
+
           if (state is NewsStateLoading) {
-            return Center(child: CircularProgressIndicator());
-          }
-          if (state is NewsStateNotConnected) {
-            return Center(
+            main = Center(child: CircularProgressIndicator());
+          } else if (state is NewsStateNotConnected) {
+            main = Center(
                 child: CircularProgressIndicator(
               backgroundColor: Colors.green,
             ));
-          }
-          if (state is NewsStateError) {
-            return Text(state.error);
-          }
-          if (state is NewsStateSuccess) {
-            return Scaffold(
-              drawer: AppDrawer(),
-              extendBodyBehindAppBar: true,
-              appBar: AppBar(
-                title: Text('拍手'),
-                backgroundColor: Colors.transparent,
-                shadowColor: Colors.transparent,
-                flexibleSpace: Container(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: <Color>[Colors.black, Colors.transparent])),
-                ),
-              ),
-              body: PageView(
-                controller: _pageCtrl,
-                scrollDirection: Axis.vertical,
-                children:
-                    state.topics.map((t) => TopicWidget(topic: t)).toList(),
-              ),
+          } else if (state is NewsStateError) {
+            main = Text(state.error);
+          } else if (state is NewsStateSuccess) {
+            main = PageView(
+              controller: _pageCtrl,
+              scrollDirection: Axis.vertical,
+              children: state.topics.map((t) => TopicWidget(topic: t)).toList(),
             );
           } else {
-            return Text('Error');
+            main = Text('Error');
           }
+
+          return Padding(
+              padding: EdgeInsets.only(top: statusBarHeight),
+              child: Scaffold(
+                backgroundColor: Colors.black,
+                drawer: AppDrawer(),
+                extendBodyBehindAppBar: true,
+                body: Stack(children: [
+                  main,
+                  Appbar(),
+                ]),
+              ));
         });
   }
 }
