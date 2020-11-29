@@ -50,28 +50,3 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     );
   }
 }
-
-/*
-class VideoPlayerScreen extends StatelessWidget {
-  final String videoUrl;
-
-  VideoPlayerScreen(this.videoUrl) : super();
-
-  @override
-  Widget build(BuildContext context) {
-    return YoYoPlayer(
-      aspectRatio: 9 / 16,
-      url: 'http://192.168.43.29:9000/media/video/$videoUrl/hls.m3u8',
-      onfullscreen: () => ,
-      videoStyle: VideoStyle(
-        play: Icon(Icons.pause),
-        pause: Icon(Icons.pause),
-        fullscreen: Icon(Icons.fullscreen),
-        forward: Icon(Icons.skip_next),
-        backward: Icon(Icons.skip_previous),
-      ),
-      videoLoadingStyle: VideoLoadingStyle(),
-    );
-  }
-}
-*/
