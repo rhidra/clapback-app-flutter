@@ -33,7 +33,8 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   Stream<NewsState> _mapEventGetToState(NewsEvent event) async* {
     yield NewsStateLoading();
     try {
-      var res = await _apiClient.requestFeed();
+      var res = await _apiClient
+          .requestGet('/topic', {'populate': 'true', 'approved': 'true'});
       final List topics = res.map<Topic>((o) => Topic.fromJson(o)).toList();
       yield NewsStateSuccess(topics);
     } on SocketException catch (_) {

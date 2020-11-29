@@ -1,31 +1,27 @@
 import 'dart:convert';
-
+import 'package:clapback_app/env.dart' as env;
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class ApiClient {
-  static const prot = kReleaseMode ? 'https' : 'http';
-  static const host = '192.168.43.29';
-  static const port = kReleaseMode ? 443 : 9000;
-
   static String formatMedia(id, type) {
     if (type == 'video') {
-      return '$prot://$host:$port/media/video/$id/hls.m3u8';
+      return '${env.protocol}://${env.host}:${env.port}/media/video/$id/hls.m3u8';
     }
     if (type == 'image') {
-      return '$prot://$host:$port/media/image/$id';
+      return '${env.protocol}://${env.host}:${env.port}/media/image/$id';
     }
     throw Error();
   }
 
-  dynamic requestFeed() async {
-    final q = {
-      'populate': 'true',
-      'approved': 'true',
-    };
+  /// General request to the backend API
+  /// - [url]: '/topic'
+  /// - [params]: {populate: true}
+  dynamic requestGet(String url, [Map<String, String> params]) async {
     final uri = kReleaseMode
-        ? Uri.https('$host:$port', '/topic', q)
-        : Uri.http('$host:$port', '/topic', q);
+        ? Uri.https('${env.host}:${env.port}', url, params)
+        : Uri.http('${env.host}:${env.port}', url, params);
+
     final res = await http.get(uri, headers: {
       'Accept': 'application/json',
     });
