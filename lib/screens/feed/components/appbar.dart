@@ -11,12 +11,12 @@ class Appbar extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(left: 15, top: 5),
             child: Text(
-              '拍手',
+              'CLAPBACK',
               style: TextStyle(
-                  fontSize: 30,
-                  shadows: [Shadow(blurRadius: 8)],
-                  color: Colors.white,
-                  fontFamily: 'Hanzipen'),
+                fontSize: 22,
+                shadows: [Shadow(blurRadius: 3)],
+                color: Colors.white,
+              ),
             ),
           ),
           decoration: BoxDecoration(
