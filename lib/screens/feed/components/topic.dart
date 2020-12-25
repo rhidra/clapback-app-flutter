@@ -33,13 +33,49 @@ class _TopicWidgetState extends State<TopicWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return PageView(
-      controller: _pageCtrl,
-      scrollDirection: Axis.horizontal,
+    return Stack(
       children: [
-        _buildPanel(widget.topic.leftPanel),
-        _buildPanel(widget.topic.centerPanel),
-        _buildPanel(widget.topic.rightPanel),
+        PageView(
+          controller: _pageCtrl,
+          scrollDirection: Axis.horizontal,
+          children: [
+            _buildPanel(widget.topic.leftPanel),
+            _buildPanel(widget.topic.centerPanel),
+            _buildPanel(widget.topic.rightPanel),
+          ],
+        ),
+        Material(
+          type: MaterialType.transparency,
+          child: Align(
+            alignment: Alignment(1, .5),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  child: _buildSideButton(
+                    icon: Icons.share,
+                    onPressed: () {},
+                  ),
+                  padding: EdgeInsets.all(10),
+                ),
+                Padding(
+                  child: _buildSideButton(
+                    icon: Icons.favorite,
+                    onPressed: () {},
+                  ),
+                  padding: EdgeInsets.all(10),
+                ),
+                Padding(
+                  child: _buildSideButton(
+                    icon: Icons.fast_rewind,
+                    onPressed: () {},
+                  ),
+                  padding: EdgeInsets.all(10),
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -100,5 +136,20 @@ class _TopicWidgetState extends State<TopicWidget> {
 
   Widget _buildQuizPanel(Panel panel) {
     return Center(child: CircularProgressIndicator());
+  }
+
+  Widget _buildSideButton({IconData icon, Function onPressed}) {
+    return Ink(
+      child: IconButton(
+        icon: Icon(icon),
+        color: Color(0xFF222222),
+        onPressed: onPressed,
+      ),
+      decoration: ShapeDecoration(
+        color: Color(0x88FFFFFF),
+        shape: CircleBorder(),
+        shadows: [BoxShadow(blurRadius: 2, color: Color(0x77000000))],
+      ),
+    );
   }
 }
