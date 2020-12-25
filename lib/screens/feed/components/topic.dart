@@ -31,6 +31,7 @@ class _TopicWidgetState extends State<TopicWidget> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        // Panels
         PageView(
           controller: _pageCtrl,
           scrollDirection: Axis.horizontal,
@@ -40,6 +41,8 @@ class _TopicWidgetState extends State<TopicWidget> {
             PanelWidget(widget.topic.rightPanel),
           ],
         ),
+
+        // Side buttons
         Material(
           type: MaterialType.transparency,
           child: Align(
@@ -66,6 +69,8 @@ class _TopicWidgetState extends State<TopicWidget> {
             ),
           ),
         ),
+
+        // Clapback button
         Align(
           alignment: Alignment(.9, .7),
           child: ClipOval(
@@ -80,6 +85,22 @@ class _TopicWidgetState extends State<TopicWidget> {
                 onTap: () {},
               ),
             ),
+          ),
+        ),
+
+        // Hastag button
+        Align(
+          alignment: Alignment(-.9, .9),
+          child: RaisedButton(
+            textColor: Colors.red,
+            color: Colors.white,
+            elevation: 2,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
+              side: BorderSide(color: Colors.red.shade200),
+            ),
+            child: Text('#${widget.topic.hashtags[0]}'),
+            onPressed: () {},
           ),
         ),
       ],
