@@ -34,14 +34,15 @@ class PanelWidget extends StatelessWidget {
   }
 
   Widget _buildTextPanel(BuildContext context) {
+    final double maxImgHeight = MediaQuery.of(context).size.height / 3;
+
     return ColoredBox(
       color: Colors.white,
       child: Column(
         children: [
           // Image
           Container(
-            constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height / 3),
+            constraints: BoxConstraints(maxHeight: maxImgHeight),
             child: CachedNetworkImage(
               imageUrl: ApiClient.formatMedia(_panel.image, 'image'),
               errorWidget: (context, url, error) => Icon(Icons.error),

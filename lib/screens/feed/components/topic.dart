@@ -66,6 +66,22 @@ class _TopicWidgetState extends State<TopicWidget> {
             ),
           ),
         ),
+        Align(
+          alignment: Alignment(.9, .8),
+          child: ClipOval(
+            child: Material(
+              color: Colors.red, // button color
+              child: InkWell(
+                child: SizedBox(
+                  width: 60,
+                  height: 60,
+                  child: Icon(Icons.message, color: Colors.white),
+                ),
+                onTap: () {},
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
