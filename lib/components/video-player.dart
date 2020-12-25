@@ -3,18 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:video_player/video_player.dart';
 
+class VideoPlayerScreenController {
+  void Function() rewind;
+}
+
 class VideoPlayerScreen extends StatefulWidget {
   final String videoUrl;
+  final VideoPlayerScreenController controller;
 
-  VideoPlayerScreen(this.videoUrl) : super();
+  VideoPlayerScreen(this.videoUrl, [this.controller]) : super();
 
   @override
-  _VideoPlayerScreenState createState() => _VideoPlayerScreenState();
+  _VideoPlayerScreenState createState() => _VideoPlayerScreenState(controller);
 }
 
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   VideoPlayerController _controller;
   Future<void> _initializeVideoPlayerFuture;
+
+  _VideoPlayerScreenState(VideoPlayerScreenController _controller) {
+    if (_controller != null) {
+      _controller.rewind = rewind;
+    }
+  }
 
   @override
   void initState() {
@@ -31,6 +42,11 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  void rewind() {
+    _controller
+        .seekTo(Duration(seconds: _controller.value.position.inSeconds - 10));
   }
 
   @override

@@ -1,3 +1,5 @@
+import 'package:clapback_app/components/video-player.dart';
+import 'package:clapback_app/models/panel.dart';
 import 'package:clapback_app/models/topic.dart';
 import 'package:clapback_app/screens/feed/components/panel.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +16,45 @@ class TopicWidget extends StatefulWidget {
 
 class _TopicWidgetState extends State<TopicWidget> {
   PageController _pageCtrl;
+  Panel _currentPanel;
+  VideoPlayerScreenController _currentVideoCtrl;
+  VideoPlayerScreenController _videoCtrlLeft, _videoCtrlCenter, _videoCtrlRight;
 
   @override
   void initState() {
     super.initState();
+    _videoCtrlLeft = VideoPlayerScreenController();
+    _videoCtrlCenter = VideoPlayerScreenController();
+    _videoCtrlRight = VideoPlayerScreenController();
+    _currentPanel = widget.topic.centerPanel;
+    _currentVideoCtrl = _videoCtrlCenter;
     _pageCtrl = PageController(initialPage: 1);
+    _pageCtrl.addListener(() {
+      setState(() {
+        try {
+          switch (_pageCtrl.page.round()) {
+            case 0:
+              _currentPanel = widget.topic.leftPanel;
+              _currentVideoCtrl = _videoCtrlLeft;
+              break;
+            case 1:
+              _currentPanel = widget.topic.centerPanel;
+              _currentVideoCtrl = _videoCtrlCenter;
+              break;
+            case 2:
+              _currentPanel = widget.topic.rightPanel;
+              _currentVideoCtrl = _videoCtrlRight;
+              break;
+            default:
+              _currentPanel = null;
+              _currentVideoCtrl = null;
+          }
+        } catch (e) {
+          _currentPanel = null;
+          _currentVideoCtrl = null;
+        }
+      });
+    });
   }
 
   @override
@@ -36,39 +72,14 @@ class _TopicWidgetState extends State<TopicWidget> {
           controller: _pageCtrl,
           scrollDirection: Axis.horizontal,
           children: [
-            PanelWidget(widget.topic.leftPanel),
-            PanelWidget(widget.topic.centerPanel),
-            PanelWidget(widget.topic.rightPanel),
+            PanelWidget(widget.topic.leftPanel, _videoCtrlLeft),
+            PanelWidget(widget.topic.centerPanel, _videoCtrlCenter),
+            PanelWidget(widget.topic.rightPanel, _videoCtrlRight),
           ],
         ),
 
         // Side buttons
-        Material(
-          type: MaterialType.transparency,
-          child: Align(
-            alignment: Alignment(1, .1),
-            child: Padding(
-              padding: EdgeInsets.only(right: 12),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _buildSideButton(
-                    icon: Icons.share,
-                    onPressed: () {},
-                  ),
-                  _buildSideButton(
-                    icon: Icons.favorite,
-                    onPressed: () {},
-                  ),
-                  _buildSideButton(
-                    icon: Icons.fast_rewind,
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+        _buildSideButtons(),
 
         // Clapback button
         Align(
@@ -104,6 +115,42 @@ class _TopicWidgetState extends State<TopicWidget> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildSideButtons() {
+    final List<Widget> buttons = [
+      _buildSideButton(
+        icon: Icons.share,
+        onPressed: () {},
+      ),
+      _buildSideButton(
+        icon: Icons.favorite,
+        onPressed: () {},
+      ),
+    ];
+
+    if (_currentPanel != null && _currentPanel.type == Panel.VIDEO) {
+      buttons.add(_buildSideButton(
+        icon: Icons.fast_rewind,
+        onPressed: () {
+          _currentVideoCtrl.rewind();
+        },
+      ));
+    }
+
+    return Material(
+      type: MaterialType.transparency,
+      child: Align(
+        alignment: Alignment(1, .1),
+        child: Padding(
+          padding: EdgeInsets.only(right: 12),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: buttons,
+          ),
+        ),
+      ),
     );
   }
 
