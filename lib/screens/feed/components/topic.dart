@@ -67,7 +67,7 @@ class _TopicWidgetState extends State<TopicWidget> {
           ),
         ),
         Align(
-          alignment: Alignment(.9, .8),
+          alignment: Alignment(.9, .7),
           child: ClipOval(
             child: Material(
               color: Colors.red, // button color
