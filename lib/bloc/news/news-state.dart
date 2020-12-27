@@ -25,7 +25,7 @@ class NewsStateError extends NewsState {
   NewsStateError(this.error) : super([error]);
 
   @override
-  String toString() => 'NewsStateNotConnected';
+  String toString() => 'NewsStateError';
 }
 
 class NewsStateSuccess extends NewsState {
@@ -34,5 +34,5 @@ class NewsStateSuccess extends NewsState {
   NewsStateSuccess(this.topics) : super([topics]);
 
   @override
-  String toString() => 'NewsStateNotConnected';
+  String toString() => 'NewsStateSuccess';
 }

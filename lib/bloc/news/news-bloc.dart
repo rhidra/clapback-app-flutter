@@ -16,7 +16,6 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
   @override
   void onTransition(Transition<NewsEvent, NewsState> transition) {
-    print(transition);
     super.onTransition(transition);
   }
 
