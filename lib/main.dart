@@ -1,4 +1,5 @@
 import 'package:clapback_app/bloc/news/news-bloc.dart';
+import 'package:clapback_app/bloc/quiz/quiz-bloc.dart';
 import 'package:clapback_app/routes.dart';
 import 'package:clapback_app/services/api-client.dart';
 import 'package:clapback_app/theme/style.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<NewsBloc>(
           create: (context) => NewsBloc(ApiClient()),
+        ),
+        BlocProvider<QuizBloc>(
+          create: (context) => QuizBloc(ApiClient()),
         ),
       ],
       child: MaterialApp(

@@ -1,4 +1,5 @@
 import 'package:clapback_app/components/video-player.dart';
+import 'package:clapback_app/screens/feed/components/quiz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:clapback_app/components/error.dart';
@@ -31,7 +32,7 @@ class _PanelWidgetState extends State<PanelWidget> {
     } else if (type == Panel.TEXT) {
       return _buildTextPanel(context);
     } else if (type == Panel.QUIZ) {
-      return _buildQuizPanel();
+      return QuizWidget(_panel.quiz);
     } else {
       return ErrorScreen(error: 'Unknown panel type !');
     }
@@ -59,6 +60,7 @@ class _PanelWidgetState extends State<PanelWidget> {
               errorWidget: (context, url, error) => Icon(Icons.error),
             ),
           ),
+
           // Text
           Flexible(
             child: Align(
