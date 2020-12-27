@@ -1,3 +1,4 @@
+import 'package:clapback_app/components/loading.dart';
 import 'package:clapback_app/services/api-client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -60,7 +61,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             child: VideoPlayer(_controller),
           );
         } else {
-          return Center(child: CircularProgressIndicator());
+          return LoadingScreen();
         }
       },
     );

@@ -33,3 +33,12 @@ class ErrorScreen extends StatelessWidget {
     );
   }
 }
+
+class NetworkError extends ErrorScreen {
+  NetworkError()
+      : super(
+          error:
+              'The server is unreachable. Are you connected to the internet ?',
+          icon: Icons.wifi_off,
+        );
+}

@@ -3,6 +3,7 @@ import 'package:clapback_app/bloc/news/news-event.dart';
 import 'package:clapback_app/bloc/news/news-state.dart';
 import 'package:clapback_app/components/drawer.dart';
 import 'package:clapback_app/components/error.dart';
+import 'package:clapback_app/components/loading.dart';
 import 'package:clapback_app/screens/feed/components/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,15 +43,11 @@ class _FeedState extends State<Feed> {
           Widget main;
 
           if (state is NewsStateLoading) {
-            main = Center(child: CircularProgressIndicator());
+            main = LoadingScreen();
           } else if (state is NewsStateNotConnected) {
-            main = ErrorScreen(
-              error:
-                  'The server is unreachable. Are you connected to the internet ?',
-              icon: Icons.wifi_off,
-            );
+            main = NetworkError();
           } else if (state is NewsStateError) {
-            main = Text(state.error);
+            main = ErrorScreen(error: state.error);
           } else if (state is NewsStateSuccess) {
             main = PageView(
               controller: _pageCtrl,
@@ -58,7 +55,7 @@ class _FeedState extends State<Feed> {
               children: state.topics.map((t) => TopicWidget(topic: t)).toList(),
             );
           } else {
-            main = Text('Error');
+            main = ErrorScreen();
           }
 
           return Padding(
