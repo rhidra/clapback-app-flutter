@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:clapback_app/env.dart' as env;
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -27,7 +28,7 @@ class ApiClient {
     });
 
     if (res.statusCode < 400) {
-      final List json = jsonDecode(res.body);
+      final dynamic json = jsonDecode(res.body);
       return json;
     } else {
       throw Exception(['Request error', res]);
