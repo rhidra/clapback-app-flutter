@@ -28,11 +28,21 @@ class QuizStateError extends QuizState {
   String toString() => 'QuizStateError';
 }
 
-class QuizStateSuccess extends QuizState {
+class QuizStateUnanswered extends QuizState {
   final Quiz quiz;
 
-  QuizStateSuccess(this.quiz) : super([quiz]);
+  QuizStateUnanswered(this.quiz) : super([quiz]);
 
   @override
-  String toString() => 'QuizStateSuccess ${quiz.id}';
+  String toString() => 'QuizStateUnanswered ${quiz.id}';
+}
+
+class QuizStateAnswered extends QuizState {
+  final Quiz quiz;
+  final String userChoice;
+
+  QuizStateAnswered(this.quiz, this.userChoice) : super([quiz, userChoice]);
+
+  @override
+  String toString() => 'QuizStateAnswered ${quiz.id} ($userChoice)';
 }

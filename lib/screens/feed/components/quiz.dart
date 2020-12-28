@@ -41,7 +41,7 @@ class _QuizWidgetState extends State<QuizWidget> {
           return NetworkError();
         } else if (state is QuizStateError) {
           return ErrorScreen(error: state.error);
-        } else if (state is QuizStateSuccess) {
+        } else if (state is QuizStateUnanswered) {
           return _buildQuiz(state.quiz);
         } else {
           return ErrorScreen();
