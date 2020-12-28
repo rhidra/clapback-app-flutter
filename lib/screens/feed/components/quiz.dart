@@ -60,26 +60,60 @@ class _QuizWidgetState extends State<QuizWidget> {
             image: AssetImage('assets/img/bg.png'),
           ),
         ),
-        Padding(
-          padding: EdgeInsets.only(top: 50, left: 12),
-          child: Text(
-            quiz.isPoll ? 'POLL' : 'QUIZ',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 50, left: 12),
+              child: Text(
+                quiz.isPoll ? 'POLL' : 'QUIZ',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              ),
             ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 100, left: 12),
-          child: Text(
-            quiz.question.toUpperCase(),
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              backgroundColor: Colors.red.shade800,
+            Padding(
+              padding: EdgeInsets.only(top: 20, left: 12),
+              child: Text(
+                quiz.question.toUpperCase(),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  backgroundColor: Colors.red.shade800,
+                ),
+              ),
             ),
-          ),
+            Padding(
+              padding: EdgeInsets.only(top: 10, left: 12, bottom: 24),
+              child: Text(
+                quiz.content.toUpperCase(),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  backgroundColor: Colors.red.shade800,
+                ),
+              ),
+            ),
+            ...?quiz.choices.map(
+              (choice) => Padding(
+                padding: EdgeInsets.only(left: 8, right: 8, bottom: 6),
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.white,
+                    onPrimary: Colors.black,
+                    textStyle: TextStyle(fontSize: 16),
+                    minimumSize: Size(double.infinity, 40),
+                  ),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(choice.text),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );
