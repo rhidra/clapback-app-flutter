@@ -1,6 +1,7 @@
 Clapback Mobile App - Flutter version
 =====================================
 
-## Project structure
+**Unfinished version of the clapback mobile app**, using the 
+Flutter framework, instead of Ionic. It is still compatible the same backend API.
 
-- `/lib/`: Where all the source code is
+To see the up to date version, look at: [https://github.com/rhidra/clapback-app](https://github.com/rhidra/clapback-app).
