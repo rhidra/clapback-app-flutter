@@ -36,7 +36,7 @@ class QuizChoice {
   final String text;
   final String color;
   final bool goodAnswer;
-  final int count;
+  int count;
 
   QuizChoice({this.id, this.text, this.color, this.goodAnswer, this.count});
 

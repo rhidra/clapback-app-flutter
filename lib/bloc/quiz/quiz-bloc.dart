@@ -7,9 +7,9 @@ import 'package:clapback_app/services/api-client.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class QuizBloc extends Bloc<QuizEvent, QuizState> {
-  final ApiClient _apiClient;
+  final ApiClient _api;
 
-  QuizBloc(this._apiClient);
+  QuizBloc(this._api);
 
   @override
   QuizState get initialState => QuizStateLoading();
@@ -27,9 +27,24 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
   Stream<QuizState> _mapEventGetToState(QuizEventGet event) async* {
     yield QuizStateLoading();
     try {
-      final res = await _apiClient.requestGet('/quiz/${event.quizId}');
+      var res = await _api.requestGet('/quiz/${event.quizId}');
       final Quiz quiz = Quiz.fromJson(res);
-      yield QuizStateSuccess(quiz);
+      yield QuizStateUnanswered(quiz);
+
+      final vote = await _api.requestGet('/quiz/vote/${event.quizId}');
+      if (vote != null) {
+        yield QuizStateAnswered(quiz, vote['choice']);
+        if (quiz.isPoll) {
+          res = await _api.requestGet('/quiz/vote/${event.quizId}/results');
+          print(res);
+          res.map((r) {
+            final choice = quiz.choices.firstWhere((c) => c.id == r['choice']);
+            choice.count = r['count'];
+            print('${choice.id} ${choice.count}');
+          });
+          yield QuizStateAnswered(quiz, vote['choice']);
+        }
+      }
     } on SocketException catch (_) {
       yield QuizStateNotConnected();
     } catch (e) {

@@ -35,6 +35,7 @@ class _QuizWidgetState extends State<QuizWidget> {
     return BlocBuilder<QuizBloc, QuizState>(
       bloc: _bloc,
       builder: (BuildContext context, QuizState state) {
+        print(state);
         if (state is QuizStateLoading) {
           return LoadingScreen();
         } else if (state is QuizStateNotConnected) {
@@ -43,6 +44,8 @@ class _QuizWidgetState extends State<QuizWidget> {
           return ErrorScreen(error: state.error);
         } else if (state is QuizStateUnanswered) {
           return _buildQuiz(state.quiz);
+        } else if (state is QuizStateAnswered) {
+          return _buildQuiz(state.quiz, state.userChoice);
         } else {
           return ErrorScreen();
         }
@@ -50,7 +53,7 @@ class _QuizWidgetState extends State<QuizWidget> {
     );
   }
 
-  Widget _buildQuiz(Quiz quiz) {
+  Widget _buildQuiz(Quiz quiz, [String userChoice]) {
     return Stack(
       children: [
         SizedBox(
@@ -108,7 +111,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                   ),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(choice.text),
+                    child: Text(choice.text + ' (${choice.count})'),
                   ),
                 ),
               ),
